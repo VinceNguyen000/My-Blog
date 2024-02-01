@@ -56,11 +56,11 @@ Route::get('/', function () {
 //        function ($file) {
 //            $documents = YamlFrontMatter::parseFile($file);
 //            return new Post(
-//                $documents->title,
-//                $documents->excerpt,
-//                $documents->date,
-//                $documents->body(),
-//                $documents->slug
+//            $documents->title,
+//            $documents->excerpt,
+//            $documents->date,
+//            $documents->body(),
+//            $documents->slug
 //            );
 //        });
 
