@@ -70,11 +70,12 @@ Route::get('/', function () {
 //    $posts = collect(File::files(resource_path("posts")))
 //        ->map(fn($file) => YamlFrontMatter::parseFile($file))
 //            ->map(fn($file) => new Post(
-//                $file->title,
-//                $file->body(),
-//                $file->slug,
-//                $file->exceprt,
-//                $file->date
+//            $file->title,
+//            $file->excerpt,
+//            $file->date,
+//            $file->body(),
+//            $file->slug
+//            );
 //            ));
 
     $posts = Post::all();
@@ -84,12 +85,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post:slug}', function (Post $post) {
     //{post} will be passed to func as $slug
     //find a post by its slug and pass to view called "post"
     #2
 
-    $post = POST::find($slug);
+//    $post = POST::find($id);
 
     return view('post', [
         'post' => $post
@@ -113,5 +114,6 @@ Route::get('posts/{post}', function ($slug) {
 //    return view('post', [
 //        'post' => $post
 //    ]);
-})->where('post', '[A-z_\-]+');
+//})->where('post', '[A-z_\-]+');
+});
 
