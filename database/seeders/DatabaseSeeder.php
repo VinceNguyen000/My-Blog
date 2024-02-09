@@ -19,17 +19,12 @@ class DatabaseSeeder extends Seeder
         Post::truncate();
         Category::truncate();
 
-        $user = User::factory(1)->create();
-
-
-
+        $user = User::factory()->create();
 
         $personal = Category::create([
              'name' =>'Personal',
              'slug' => 'personal'
          ]);
-
-
 
         $family = Category::create([
             'name' =>'Family',
@@ -42,7 +37,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Post::create([
-            'user_id' => 1,
+            'user_id' => $user->id,
             'category_id' => $personal->id,
             'slug' => 'my-personal-post',
             'title' => 'My Personal Post',
@@ -51,7 +46,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Post::create([
-            'user_id' => 2,
+            'user_id' => $user->id,
             'category_id' => $family->id,
             'slug' => 'my-family-post',
             'title' => 'My Family Post',
@@ -60,12 +55,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Post::create([
-            'user_id' => 3,
+            'user_id' => $user->id,
             'category_id' => $work->id,
             'slug' => 'my-work-post',
             'title' => 'My Work Post',
             'excerpt' => 'Lorem ipsum dolar sit amet.',
             'body' => 'bla bla bla'
         ]);
+
+
     }
 }
