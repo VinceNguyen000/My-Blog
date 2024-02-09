@@ -9,11 +9,23 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
-    public function getRouteKeyName()
+
+    public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        //how many category a post has? 1, many?
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
 
