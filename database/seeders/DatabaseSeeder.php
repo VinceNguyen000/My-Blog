@@ -15,54 +15,60 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
-        Post::truncate();
-        Category::truncate();
 
-        $user = User::factory()->create();
 
-        $personal = Category::create([
-             'name' =>'Personal',
-             'slug' => 'personal'
-         ]);
-
-        $family = Category::create([
-            'name' =>'Family',
-            'slug' => 'family'
+       $user = User::factory()->create([
+            'name' => 'GIJOE'
+        ]);
+        Post::factory(5)->create([
+            'user_id' => $user->id
         ]);
 
-        $work = Category::create([
-            'name' =>'Work',
-            'slug' => 'work'
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $personal->id,
-            'slug' => 'my-personal-post',
-            'title' => 'My Personal Post',
-            'excerpt' => 'Lorem ipsum dolar sit amet.',
-            'body' => 'bla bla bla'
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $family->id,
-            'slug' => 'my-family-post',
-            'title' => 'My Family Post',
-            'excerpt' => 'Lorem ipsum dolar sit amet.',
-            'body' => 'bla bla bla'
-        ]);
-
-        Post::create([
-            'user_id' => $user->id,
-            'category_id' => $work->id,
-            'slug' => 'my-work-post',
-            'title' => 'My Work Post',
-            'excerpt' => 'Lorem ipsum dolar sit amet.',
-            'body' => 'bla bla bla'
-        ]);
-
-
+//        User::truncate();
+//        Post::truncate();
+//        Category::truncate();
+//        $user = User::factory()->create();
+//
+//        $personal = Category::create([
+//             'name' =>'Personal',
+//             'slug' => 'personal'
+//         ]);
+//
+//        $family = Category::create([
+//            'name' =>'Family',
+//            'slug' => 'family'
+//        ]);
+//
+//        $work = Category::create([
+//            'name' =>'Work',
+//            'slug' => 'work'
+//        ]);
+//
+//        Post::create([
+//            'user_id' => $user->id,
+//            'category_id' => $personal->id,
+//            'slug' => 'my-personal-post',
+//            'title' => 'My Personal Post',
+//            'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
+//            'body' => '<p>bla bla bla</p>'
+//        ]);
+//
+//        Post::create([
+//            'user_id' => $user->id,
+//            'category_id' => $family->id,
+//            'slug' => 'my-family-post',
+//            'title' => 'My Family Post',
+//            'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
+//            'body' => '<p>bla bla bla</p>'
+//        ]);
+//
+//        Post::create([
+//            'user_id' => $user->id,
+//            'category_id' => $work->id,
+//            'slug' => 'my-work-post',
+//            'title' => 'My Work Post',
+//            'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
+//            'body' => '<p>bla bla bla</p>'
+//        ]);
     }
 }
