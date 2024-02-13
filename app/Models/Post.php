@@ -10,12 +10,12 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $with = ['category', 'author'];
 
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName(): string
+//    {
+//        return 'slug';
+//    }
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -23,9 +23,9 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo //will call foreign key author_id
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
 
