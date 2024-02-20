@@ -21,118 +21,35 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::get('/', function () {
 
-
-
-#1
-//    $document = YamlFrontMatter::parseFile(
-//        resource_path('posts/my-fourth-post.html')
-//    );
-//    ddd($document->body());
-
-#2
-//    $files = File::files(resource_path("posts/"));
-//    $posts = [];
-//    foreach($files as $file) {
-//        $documents = YamlFrontMatter::parseFile($file);
-//        $posts[] = new Post(
-//            $documents->title,
-//            $documents->excerpt,
-//            $documents->date,
-//            $documents->body(),
-//            $documents->slug
-//        );
-//    }
-
-#3
-//    $files = File::files(resource_path("posts/"));
-//    $posts = array_map(function ($file) {
-//        $documents = YamlFrontMatter::parseFile($file);
-//        return new Post(
-//            $documents->title,
-//            $documents->excerpt,
-//            $documents->date,
-//            $documents->body(),
-//            $documents->slug
-//        );
-//    }, $files);
-
-#4
-//    $files = File::files(resource_path("posts/"));
-//    $posts= collect($files)->map(
-//        function ($file) {
-//            $documents = YamlFrontMatter::parseFile($file);
-//            return new Post(
-//            $documents->title,
-//            $documents->excerpt,
-//            $documents->date,
-//            $documents->body(),
-//            $documents->slug
-//            );
-//        });
-
-
-#5 map files in dir and map props in files
-
-//    $posts = collect(File::files(resource_path("posts")))
-//        ->map(fn($file) => YamlFrontMatter::parseFile($file))
-//            ->map(fn($file) => new Post(
-//            $file->title,
-//            $file->excerpt,
-//            $file->date,
-//            $file->body(),
-//            $file->slug
-//            );
-//            ));
-
-    \Illuminate\Support\Facades\DB::listen(function($query){
+    \Illuminate\Support\Facades\DB::listen(function ($query) {
         logger($query->sql, $query->bindings);
     });
 
     return view('posts', [
-        'posts' => Post::latest()->get()
+        'posts' => Post::latest()->get(),
+        'categories' => Category::all()
     ]);
 });
 
 Route::get('posts/{post:slug}', function (Post $post) {
-    //{post} will be passed to func as $slug
-    //find a post by its slug and pass to view called "post"
-    #2
-
-//    $post = POST::find($id);
 
     return view('post', [
         'post' => $post
     ]);
-
-    #1
-//    $path = __DIR__ . "/../resources/posts/{$slug}.html";
-//
-//    if (!file_exists($path)) {
-//        return redirect('/');
-//        // abort(404);
-//    }
-//
-//    //use cache to save less access to expensive operations
-//    $post = cache()->remember("posts,{$slug}", 1200, function () use ($path) {
-//        var_dump('var get content');
-//        return file_get_contents($path);
-//    });
-//
-//
-//    return view('post', [
-//        'post' => $post
-//    ]);
-//})->where('post', '[A-z_\-]+');
 });
 
 Route::get('categories/{category:slug}', function (Category $category) {
     return view('posts', [
-        'posts' => $category->posts
+        'posts' => $category->posts,
+        'currentCategory' => $category,
+        'categories' => Category::all()
     ]);
 });
+
 Route::get('authors/{author:username}', function (User $author) {
 
     return view('posts', [
-        'posts' => $author->posts
+        'posts' => $author->posts,
+//        'categories' => Category::all()
     ]);
 });
