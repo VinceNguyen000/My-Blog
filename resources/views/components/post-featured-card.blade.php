@@ -11,7 +11,7 @@
         <div class="flex-1 flex flex-col justify-between">
             <header class="mt-8 lg:mt-0">
                 <div class="space-x-2">
-                    <x-category-button :category="$post->category" />
+                    <x-category-button :category="$post->category"/>
                 </div>
 
                 <div class="mt-4">
@@ -25,10 +25,8 @@
                 </div>
             </header>
 
-            <div class="text-sm mt-2">
-                <p>
-                    {{$post->excerpt}}
-                </p>
+            <div class="text-sm mt-2 space-y-4">
+                {!! $post->excerpt !!}
             </div>
 
             <footer class="flex justify-between items-center mt-8">
