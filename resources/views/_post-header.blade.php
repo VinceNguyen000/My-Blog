@@ -15,23 +15,30 @@
     <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
         <!--  Category -->
         <div class="relative lg:inline-flex bg-gray-100 rounded-xl">
-            <div x-data="{ show: false }" @click.away=" show = false ">
-                <button @click=" show = !show "
-                        class="w-full xl:!w-3/6 py-2 pl-3 pr-3 text-sm font-semibold text-left lg:w-32 flex lg:inline-flex">
-                    {{ isset($currentCategory) ? ucfirst( $currentCategory->name ) : 'Categories' }}
-                </button>
-                <div x-show="show" class="absolute py-2 bg-gray-100 w-auto mt-2 rounded-xl z-50" style="display: none">
-                    <a href="/"
-                       class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white">All</a>
+            <x-dropdown>
+                <x-slot name="trigger">
+                    <button
+                        class="w-full py-2 pl-3 pr-3 text-sm font-semibold text-left lg:w-40 flex lg:inline-flex">
+                        {{ isset($currentCategory) ? ucwords( $currentCategory->name ) : 'Categories' }}
+                        <x-icon
+                            name="down-arrow"
+                            class="absolute pointer-events-none"
+                            style="right: 12px;" width="22" height="22"
+                            viewBox="0 0 22 22"></x-icon>
+                    </button>
+                </x-slot>
 
-                    @foreach($categories as $category)
-                        <a href="/categories/{{ $category->slug }}"
-                           class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 focus:bg-blue-500 hover:text-white focus:text-white
-                            {{ isset($currentCategory) && $currentCategory->is($category) ? 'bg-blue-500 text-white' : '' }}"
-                        >{{ucfirst($category->name )}}</a>
-                    @endforeach
-                </div>
-            </div>
+                <x-dropdown-item href="/" :active="request()->routeIs('home')">All</x-dropdown-item>
+
+                @foreach($categories as $category)
+                    <x-dropdown-item
+                        href="/categories/{{ $category->slug }}"
+                        {{--                        :active="isset($currentCategory) && $currentCategory->is($category)"--}}
+                        :active="request()->is('categories/' . $category->slug)"
+                    >
+                        {{ ucwords($category->name )}}</x-dropdown-item>
+                @endforeach
+            </x-dropdown>
         </div>
 
         <!-- Other Filters -->
