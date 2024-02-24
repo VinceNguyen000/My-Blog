@@ -13,6 +13,7 @@
         <div class="mt-8 flex flex-col justify-between">
             <header>
                 <div class="space-x-2">
+                    {{-- button show catergory in each card grid --}}
                     <x-category-button :category="$post->category"/>
                 </div>
 

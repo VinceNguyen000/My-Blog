@@ -11,6 +11,7 @@
         <div class="flex-1 flex flex-col justify-between">
             <header class="mt-8 lg:mt-0">
                 <div class="space-x-2">
+
                     <x-category-button :category="$post->category"/>
                 </div>
 
@@ -34,8 +35,10 @@
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3">
                         <h5 class="font-bold">
-                            <a href="/?author={{ $post->author->username }}">{{$post->author->name}}
-                                author</a></h5>
+                            <a href="/?author={{ $post->author->username }}">
+                                {{$post->author->name}} author
+                            </a>
+                        </h5>
                     </div>
                 </div>
 
