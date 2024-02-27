@@ -37,15 +37,20 @@ class Post extends Model
         );
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category()
     {
         //how many category a post has? 1, many?
         return $this->belongsTo(Category::class);
     }
 
-    public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo //will call foreign key author_id
+    public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
 
