@@ -53,7 +53,9 @@
 
                 {{--section for comment input--}}
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                    <form action="#" method="POST"
+                    @auth
+                    <form action="/posts/{{ $post->slug }}/comments"
+                          method="POST"
                           class="bg-gray-100 p-6 rounded-xl border border-gray-200 space-x-6 space-y-6">
                         @csrf
                         <header class="flex items-center">
@@ -64,14 +66,14 @@
                                      width="50px"
                                 >
                             </div>
-                            <h2>Participate!</h2>
+                            <h4>Hey {!! Str::upper(auth()->user()->username) !!}, tell people what you think! </h4>
                         </header>
-                        <div class="">
+                        <div>
                             <textarea
                                 name="body"
                                 cols="30"
                                 rows="10"
-                                class="w-full text-gray-700 text-sm focus:outline-none focus:ring"
+                                class="w-full text-gray-700 text-sm focus:outline-none focus:ring p-2"
                                 placeholder="Comment here"
                             ></textarea>
                         </div>
@@ -83,6 +85,11 @@
                             </button>
                         </div>
                     </form>
+                    @else
+                        <p>
+                            <a href="/register" class="hover:underline text-blue-500">Register</a> or <a href="/login"><span class="hover:underline text-blue-500">Log in</span> to leave a comment</a>
+                        </p>
+                    @endauth
                     @foreach($post->comments as $comment)
                         <x-post-comment :comment="$comment"></x-post-comment>
                     @endforeach
