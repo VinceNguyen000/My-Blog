@@ -53,43 +53,9 @@
 
                 {{--section for comment input--}}
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                    @auth
-                    <form action="/posts/{{ $post->slug }}/comments"
-                          method="POST"
-                          class="bg-gray-100 p-6 rounded-xl border border-gray-200 space-x-6 space-y-6">
-                        @csrf
-                        <header class="flex items-center">
-                            <div class="px-3">
-                                <img src="https://i.pravatar.cc/100?u={{ auth()->id() }}"
-                                     alt=""
-                                     class="rounded-full"
-                                     width="50px"
-                                >
-                            </div>
-                            <h4>Hey {!! Str::upper(auth()->user()->username) !!}, tell people what you think! </h4>
-                        </header>
-                        <div>
-                            <textarea
-                                name="body"
-                                cols="30"
-                                rows="10"
-                                class="w-full text-gray-700 text-sm focus:outline-none focus:ring p-2"
-                                placeholder="Comment here"
-                            ></textarea>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="submit"
-                                    class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500 mb-6"
-                            >
-                                Post Comment
-                            </button>
-                        </div>
-                    </form>
-                    @else
-                        <p>
-                            <a href="/register" class="hover:underline text-blue-500">Register</a> or <a href="/login"><span class="hover:underline text-blue-500">Log in</span> to leave a comment</a>
-                        </p>
-                    @endauth
+
+                    @include('posts._add-comment-form')
+
                     @foreach($post->comments as $comment)
                         <x-post-comment :comment="$comment"></x-post-comment>
                     @endforeach
