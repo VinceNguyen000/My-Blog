@@ -6,6 +6,17 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('users/ping', function (){
+    try {
+        $mailchimp = new MailchimpTransactional\ApiClient();
+        $mailchimp->setApiKey(config('services.mailchimp.key'));
+        $response = $mailchimp->users->ping();
+        print_r($response);
+    } catch (Error $e) {
+        echo 'Error: ',  $e->getMessage(), "\n";
+    }
+});
+
 //Home
 Route::get('/', [PostController::class, 'index'])->name('home');
 //Posts
